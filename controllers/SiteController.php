@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\RegistrationForm;
 
 class SiteController extends Controller
 {
@@ -59,11 +60,15 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+        $registration_model = new RegistrationForm();
+
+//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+//            return $this->goBack();
+//        }
+
         return $this->render('login', [
             'model' => $model,
+            'registration_model' => $registration_model
         ]);
     }
 

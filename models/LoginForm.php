@@ -10,7 +10,11 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
+    const FIELD_LOGIN = 'login';
+    const FIELD_PASSWORD = 'password';
+    const FIELD_REMEMBER_ME = 'rememberMe';
+
+    public $login;
     public $password;
     public $rememberMe = true;
 
@@ -24,11 +28,11 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [[self::FIELD_LOGIN, self::FIELD_PASSWORD], 'required'],
             // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
+            [self::FIELD_REMEMBER_ME, 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            [self::FIELD_PASSWORD, 'validatePassword'],
         ];
     }
 

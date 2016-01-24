@@ -23,7 +23,9 @@ class Users extends \yii\db\ActiveRecord
 {
     const FIELD_ID = 'id';
     const FIELD_LOGIN = 'login';
-    const FIELD_SECRET = 'secret';
+    const FIELD_PASSWORD_HASH = 'password_hash';
+    const FIELD_SALT = 'salt';
+    const FIELD_ACCESS_TOKEN = 'access_token';
     const FIELD_FIRST_NAME = 'first_name';
     const FIELD_LAST_NAME = 'last_name';
     const FIELD_DATE_OF_BIRTH = 'date_of_birth';
@@ -49,7 +51,7 @@ class Users extends \yii\db\ActiveRecord
         return [
             [[self::FIELD_DATE_OF_BIRTH], 'safe'],
             [[self::FIELD_PROGRAMMING, self::FIELD_SPORT, self::FIELD_HUNTING, self::FIELD_VIDEO_GAMES, self::FIELD_TRAVELING], 'integer'],
-            [[self::FIELD_LOGIN, self::FIELD_SECRET, self::FIELD_FIRST_NAME, self::FIELD_LAST_NAME], 'string', 'max' => 255],
+            [[self::FIELD_LOGIN, self::FIELD_PASSWORD_HASH, self::FIELD_FIRST_NAME, self::FIELD_LAST_NAME], 'string', 'max' => 255],
         ];
     }
 
