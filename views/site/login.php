@@ -37,11 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>
-
     <?php ActiveForm::end(); ?>
+    <hr>
+    <h1>Register</h1>
+    <p>Please fill out the following fields to register:</p>
 
-    <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-    </div>
 </div>
