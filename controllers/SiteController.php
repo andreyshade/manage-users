@@ -7,13 +7,10 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\RegistrationForm;
 
-class SiteController extends Controller
-{
-    public function behaviors()
-    {
+class SiteController extends Controller {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -35,8 +32,7 @@ class SiteController extends Controller
         ];
     }
 
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -48,52 +44,42 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
+    public function actionIndex() {
         return $this->render('index');
     }
 
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         $registration_model = new RegistrationForm();
 
-//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//            return $this->goBack();
-//        }
-
+        if ($model->load(Yii::$app->request->post(), 'LoginForm') && $model->login()) {
+            return $this->goBack();
+        }
+        if ($registration_model->load(Yii::$app->request->post(), 'RegistrationForm') && $registration_model->register()) {
+            return $this->redirect('personal-details');
+        }
         return $this->render('login', [
             'model' => $model,
             'registration_model' => $registration_model
         ]);
     }
 
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
+    public function actionPersonalDetails() {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
         }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
 
-    public function actionAbout()
-    {
-        return $this->render('about');
+        return $this->render('personal_details');
     }
 }

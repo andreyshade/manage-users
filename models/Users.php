@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $login
- * @property string $secret
+ * @property string $password_hash
  * @property string $first_name
  * @property string $last_name
  * @property string $date_of_birth

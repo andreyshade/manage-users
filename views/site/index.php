@@ -14,7 +14,7 @@ $this->title = 'People\'s Interests Community home page';
         <p class="lead">Find your feature friend by interests.</p>
 
         <p>
-            <?= Html::a('Get start!', 'login', ['class' => 'btn btn-lg btn-success']) ?>
+            <?= Html::a('Get start!', 'site/login', ['class' => 'btn btn-lg btn-success']) ?>
         </p>
     </div>
 
