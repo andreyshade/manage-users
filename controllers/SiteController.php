@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\PersonalDetailsForm;
+use app\models\Users;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -76,10 +78,21 @@ class SiteController extends Controller {
     }
 
     public function actionPersonalDetails() {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        return $this->render('personal_details');
+        $model = new PersonalDetailsForm();
+        if ($user = Users::findOne(Yii::$app->user->id)) {
+            $model->initForm($user);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Personal details update successfully');
+            return $this->redirect('personal-details');
+        }
+        return $this->render('personal_details', [
+            'model' => $model
+        ]);
     }
 }
