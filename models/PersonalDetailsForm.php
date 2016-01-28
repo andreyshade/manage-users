@@ -78,7 +78,11 @@ class PersonalDetailsForm extends Model {
         $this->login = $model->login;
         $this->first_name = $model->first_name;
         $this->last_name = $model->last_name;
-        $this->date_of_birth = DateTime::createFromFormat('Y-m-d', $model->date_of_birth)->format('d/m/Y');
+        if ($model->date_of_birth) {
+            $this->date_of_birth = DateTime::createFromFormat('Y-m-d', $model->date_of_birth)->format('d/m/Y');
+        } else {
+            $this->date_of_birth = null;
+        }
         $this->programming = $model->programming;
         $this->sport = $model->sport;
         $this->hunting = $model->hunting;
@@ -95,7 +99,11 @@ class PersonalDetailsForm extends Model {
         $model->login = $this->login;
         $model->first_name = $this->first_name;
         $model->last_name = $this->last_name;
-        $model->date_of_birth = DateTime::createFromFormat('d/m/Y', $this->date_of_birth)->format('Y-m-d');
+        if ($this->date_of_birth) {
+            $model->date_of_birth = DateTime::createFromFormat('d/m/Y', $this->date_of_birth)->format('Y-m-d');
+        } else {
+            $model->date_of_birth = null;
+        }
         $model->programming = $this->programming;
         $model->sport = $this->sport;
         $model->hunting = $this->hunting;

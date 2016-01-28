@@ -48,7 +48,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
     <div class="checkbox-inline"><?= $form->field($model, PersonalDetailsForm::FIELD_TRAVELING)->checkbox()?></div>
     <div class="row">
         <div class="col-sm-6 text-left">
-            <?= Html::a('Cancel', '/site/personal-details', ['class' => 'btn btn-default'])?>
+            <?= Html::a('Home', '/site/index', ['class' => 'btn btn-default'])?>
         </div>
         <div class="col-sm-6 text-right">
             <?= Html::submitButton('Update', ['class' => 'btn btn-primary']) ?>

@@ -19,8 +19,7 @@ use Yii;
  * @property integer $video_games
  * @property integer $traveling
  */
-class Users extends \yii\db\ActiveRecord
-{
+class Users extends \yii\db\ActiveRecord {
     const FIELD_ID = 'id';
     const FIELD_LOGIN = 'login';
     const FIELD_PASSWORD_HASH = 'password_hash';
@@ -36,16 +35,14 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'users';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [[self::FIELD_DATE_OF_BIRTH], 'safe'],
             [[self::FIELD_PROGRAMMING, self::FIELD_SPORT, self::FIELD_HUNTING, self::FIELD_VIDEO_GAMES, self::FIELD_TRAVELING], 'integer'],
@@ -56,8 +53,7 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             self::FIELD_ID => 'ID',
             self::FIELD_LOGIN => 'Login',
@@ -70,5 +66,40 @@ class Users extends \yii\db\ActiveRecord
             self::FIELD_VIDEO_GAMES => 'Video Games',
             self::FIELD_TRAVELING => 'Traveling',
         ];
+    }
+
+    public function getFullName() {
+        if (!$this->first_name && !$this->last_name) {
+            return false;
+        }
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getInterestsList() {
+        $interests = '<div class="text-warning">No interests</div>';
+
+        if ($user = Users::findOne($this->id)) {
+            if ($user->programming || $user->sport || $user->hunting || $user->video_games || $user->traveling) {
+                $interests = null;
+                if ($user->programming) {
+                    $interests .= '<li>' . $user->getAttributeLabel(self::FIELD_PROGRAMMING) . '</li>';
+                }
+                if ($user->sport) {
+                    $interests .= '<li>' . $user->getAttributeLabel(self::FIELD_SPORT) . '</li>';
+                }
+                if ($user->hunting) {
+                    $interests .= '<li>' . $user->getAttributeLabel(self::FIELD_HUNTING) . '</li>';
+                }
+                if ($user->video_games) {
+                    $interests .= '<li>' . $user->getAttributeLabel(self::FIELD_VIDEO_GAMES) . '</li>';
+                }
+                if ($user->traveling) {
+                    $interests .= '<li>' . $user->getAttributeLabel(self::FIELD_TRAVELING) . '</li>';
+                }
+                $interests = 'Interests:<ul class="text-left" >' . $interests . '</ul>';
+            }
+        }
+
+        return $interests;
     }
 }

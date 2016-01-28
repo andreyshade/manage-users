@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\models\PersonalDetailsForm;
+use app\models\User;
 use app\models\Users;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -47,7 +49,18 @@ class SiteController extends Controller {
     }
 
     public function actionIndex() {
-        return $this->render('index');
+        $user = Users::findOne([Users::FIELD_ID => Yii::$app->user->id]);
+
+        $dataProvider = new ActiveDataProvider([
+			'query' => Users::find()->where(['!=', Users::FIELD_ID, (Yii::$app->user->id ? Yii::$app->user->id : 0)]),
+			'pagination' => [
+				'pageSize' => 24,
+			],
+		]);
+        return $this->render('index' , [
+            'user' => $user,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     public function actionLogin()
