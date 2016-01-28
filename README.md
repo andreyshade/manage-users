@@ -31,6 +31,7 @@ INSTALLATION
 
 1. Copy project to your folder
 2. Rename 'config/params_template.php' to 'params.php'
+3. Rename 'config/db_template' to 'db.php' and modify it if need
 3. Type command 'composer update' to update dependencies
 4. After Database confirutaion. Run command 'php yii migrate' to configure database
 5. Enjoy! 
