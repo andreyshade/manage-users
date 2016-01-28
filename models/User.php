@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use app\models\Users;
 
@@ -24,7 +25,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public static function findIdentityByAccessToken($token, $type = null) {
-        return static::findOne([Users::FIELD_ACCESS_TOKEN => $token]);
+        throw new NotSupportedException('"findIdentityByAccessToken" is not implement');
     }
 
     /**
@@ -48,14 +49,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public function getAuthKey() {
-        return $this->authKey;
+//        return $this->authKey;
     }
 
     /**
      * @inheritdoc
      */
     public function validateAuthKey($authKey) {
-        return $this->authKey === $authKey;
+        return $this->getAuthKey() === $authKey;
     }
 
     /**

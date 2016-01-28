@@ -24,8 +24,6 @@ class Users extends \yii\db\ActiveRecord
     const FIELD_ID = 'id';
     const FIELD_LOGIN = 'login';
     const FIELD_PASSWORD_HASH = 'password_hash';
-    const FIELD_SALT = 'salt';
-    const FIELD_ACCESS_TOKEN = 'access_token';
     const FIELD_FIRST_NAME = 'first_name';
     const FIELD_LAST_NAME = 'last_name';
     const FIELD_DATE_OF_BIRTH = 'date_of_birth';

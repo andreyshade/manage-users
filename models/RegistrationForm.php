@@ -64,7 +64,7 @@ class RegistrationForm extends Model {
         $user->save();
 
 
-        Yii::$app->user->login(User::findByLogin($this->login), 3600 * 24 * 30);
+        Yii::$app->user->login(User::findByUsername($this->login), 3600 * 24 * 30);
 
         return true;
 
