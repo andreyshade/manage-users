@@ -83,11 +83,6 @@ class PersonalDetailsForm extends Model {
         } else {
             $this->date_of_birth = null;
         }
-        $this->programming = $model->programming;
-        $this->sport = $model->sport;
-        $this->hunting = $model->hunting;
-        $this->video_games = $model->video_games;
-        $this->traveling = $model->traveling;
     }
 
     public function save() {
@@ -104,11 +99,6 @@ class PersonalDetailsForm extends Model {
         } else {
             $model->date_of_birth = null;
         }
-        $model->programming = $this->programming;
-        $model->sport = $this->sport;
-        $model->hunting = $this->hunting;
-        $model->video_games = $this->video_games;
-        $model->traveling = $this->traveling;
         $model->save();
         return true;
     }

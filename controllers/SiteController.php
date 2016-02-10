@@ -49,10 +49,10 @@ class SiteController extends Controller {
     }
 
     public function actionIndex() {
-        $user = Users::findOne([Users::FIELD_ID => Yii::$app->user->id]);
+        $user = Users::findOne([Users::FIELD_USER_ID => Yii::$app->user->id]);
 
         $dataProvider = new ActiveDataProvider([
-			'query' => Users::find()->where(['!=', Users::FIELD_ID, (Yii::$app->user->id ? Yii::$app->user->id : 0)]),
+			'query' => Users::find()->where(['!=', Users::FIELD_USER_ID, (Yii::$app->user->id ? Yii::$app->user->id : 0)]),
 			'pagination' => [
 				'pageSize' => 24,
 			],

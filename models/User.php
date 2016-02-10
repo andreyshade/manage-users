@@ -42,7 +42,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public function getId() {
-        return $this->id;
+        return $this->user_id;
     }
 
     /**

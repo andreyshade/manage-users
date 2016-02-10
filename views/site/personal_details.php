@@ -25,6 +25,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
 
 <h1><?= $this->title?></h1>
 <?php $form = ActiveForm::begin([
+    'id' => 'personal_details_form',
     'options' => ['class' => 'form-horizontal'],
     'fieldConfig' => [
         'template' => "{label}\n<div class=\"col-sm-3\">{input}</div>\n<div class=\"col-sm-8\">{error}</div>",
@@ -41,11 +42,15 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
         'format' => 'dd/mm/yyyy'
     ]])?>
     <legend>Hobbies</legend>
-    <div class="checkbox-inline"><?= $form->field($model, PersonalDetailsForm::FIELD_PROGRAMMING)->checkbox()?></div>
-    <div class="checkbox-inline"><?= $form->field($model, PersonalDetailsForm::FIELD_SPORT)->checkbox()?></div>
-    <div class="checkbox-inline"><?= $form->field($model, PersonalDetailsForm::FIELD_HUNTING)->checkbox()?></div>
-    <div class="checkbox-inline"><?= $form->field($model, PersonalDetailsForm::FIELD_VIDEO_GAMES)->checkbox()?></div>
-    <div class="checkbox-inline"><?= $form->field($model, PersonalDetailsForm::FIELD_TRAVELING)->checkbox()?></div>
+    <div class="row">
+        <div class="col-sm-12 text-left">
+            <?php $form_interest = ActiveForm::begin([
+                'options' => ['class' => 'form-inline'],
+                'fieldConfig' => ['template' => "{input}"]
+            ]) ?>
+
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-6 text-left">
             <?= Html::a('Home', '/site/index', ['class' => 'btn btn-default'])?>
