@@ -47,6 +47,10 @@ class UsersInterests extends \yii\db\ActiveRecord
         ];
     }
 
+    public function haveInterestCurrentUser() {
+        return UsersInterests::findOne([self::FIELD_USER_ID => Yii::$app->user->id, self::FIELD_INTEREST_ID => $this->interest_id]);
+    }
+
     const RELATION_INTEREST = 'interest';
 
     public function getInterest()

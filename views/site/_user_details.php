@@ -8,6 +8,7 @@
  * @var \app\models\Users $model
  */
 use yii\helpers\Html;
+use app\models\UsersInterests;
 ?>
 <div class="col-sm-3 text-center">
     <div class="panel panel-default">
@@ -21,7 +22,7 @@ use yii\helpers\Html;
             <?= Html::ul($model->interests, ['class' => 'list-group',
                 'item' => function($item, $index) {
                     /* @var $item UsersInterests */
-                    return Html::tag('li', $item->interest->title, ['class' => 'list-group-item']);
+                    return Html::tag('li', $item->interest->title, ['class' => 'list-group-item' . (($item->haveInterestCurrentUser()) ? ' list-group-item-success' : '')]);
                 }
             ])?>
         </div>
