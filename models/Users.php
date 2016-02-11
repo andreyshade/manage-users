@@ -59,4 +59,9 @@ class Users extends \yii\db\ActiveRecord {
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    const RELATION_INTRESERTS = 'interests';
+    public function getInterests() {
+        return $this->hasMany(UsersInterests::className(), [UsersInterests::FIELD_USER_ID => self::FIELD_USER_ID]);
+    }
+
 }

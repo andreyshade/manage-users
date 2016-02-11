@@ -31,6 +31,12 @@ $this->title = 'People\'s Interests Community home page';
                         <div class="panel-body">
                             <?= ($user->getFullName() ? Html::tag('h4', Html::encode($user->getFullName())) : '') ?>
                             <?= ($user->date_of_birth) ? Html::tag('div', 'Birthday: ' . DateTime::createFromFormat('Y-m-d', $user->date_of_birth)->format('d/m/Y')) : ''?>
+                            <?= Html::ul($user->interests, ['class' => 'list-group',
+                                    'item' => function($item, $index) {
+                                    /* @var $item UsersInterests */
+                                    return Html::tag('li', $item->interest->title, ['class' => 'list-group-item']);
+                                 }
+                            ])?>
                         </div>
                     </div>
                 </div>

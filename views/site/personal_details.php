@@ -79,7 +79,7 @@ echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
                     'limit' => 10
                     ]
                 ],
-                'pluginOpti`ons' => ['highlight' => true],
+                'pluginOptions' => ['highlight' => true],
             ]);?>
             <?= Html::submitButton('Add', ['class' => 'btn btn-success', 'form' => 'interests-form']) ?>
         <?php ActiveForm::end();?>

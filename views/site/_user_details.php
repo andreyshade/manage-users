@@ -17,6 +17,13 @@ use yii\helpers\Html;
         <div class="panel-body">
             <?= ($model->getFullName() ? Html::tag('h4', Html::encode($model->getFullName())) : '')?>
             <?= ($model->date_of_birth) ? Html::tag('div', 'Birthday: ' . DateTime::createFromFormat('Y-m-d', $model->date_of_birth)->format('d/m/Y')) : ''?>
+            <br>
+            <?= Html::ul($model->interests, ['class' => 'list-group',
+                'item' => function($item, $index) {
+                    /* @var $item UsersInterests */
+                    return Html::tag('li', $item->interest->title, ['class' => 'list-group-item']);
+                }
+            ])?>
         </div>
     </div>
 </div>
