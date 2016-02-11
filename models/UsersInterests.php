@@ -10,6 +10,7 @@ use Yii;
  * @property integer $user_interest_id
  * @property integer $user_id
  * @property integer $interest_id
+ * @property Interests $interest
  */
 class UsersInterests extends \yii\db\ActiveRecord
 {
@@ -45,4 +46,12 @@ class UsersInterests extends \yii\db\ActiveRecord
             self::FIELD_INTEREST_ID => 'Interest ID',
         ];
     }
+
+    const RELATION_INTEREST = 'interest';
+
+    public function getInterest()
+    {
+        return $this->hasOne(Interests::className(), [Interests::FIELD_INTEREST_ID => self::FIELD_INTEREST_ID]);
+    }
+
 }

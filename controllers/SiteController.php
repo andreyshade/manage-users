@@ -2,15 +2,19 @@
 
 namespace app\controllers;
 
-use app\models\PersonalDetailsForm;
-use app\models\User;
-use app\models\Users;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\Controller;
+use app\models\User;
+use app\models\Users;
 use app\models\LoginForm;
+use app\models\Interests;
+use app\models\PersonalDetailsForm;
+use app\models\UsersInterestsForm;
+use app\models\UsersInterests;
 use app\models\RegistrationForm;
 
 class SiteController extends Controller {
@@ -100,12 +104,36 @@ class SiteController extends Controller {
             $model->initForm($user);
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $interests_model = new UsersInterestsForm();
+
+        $interests = UsersInterests::find()->where([UsersInterests::FIELD_USER_ID => Yii::$app->user->id])->all();
+
+        if ($model->load(Yii::$app->request->post(), 'PersonalDetailsForm') && $model->save()) {
             Yii::$app->session->setFlash('success', 'Personal details update successfully');
             return $this->redirect('personal-details');
         }
+
+        if ($interests_model->load(Yii::$app->request->post(), 'UsersInterestsForm') && $interests_model->save()) {
+            Yii::$app->session->setFlash('success', 'Interest added successfully');
+            return $this->redirect('personal-details');
+        }
+
         return $this->render('personal_details', [
-            'model' => $model
+            'model' => $model,
+            'interests_model' => $interests_model,
+            'interests' => $interests
         ]);
+    }
+
+    public function actionDeleteUserInterest($interest_id)
+    {
+        UsersInterests::deleteAll([UsersInterests::FIELD_INTEREST_ID => $interest_id, UsersInterests::FIELD_USER_ID => Yii::$app->user->id]);
+//        If interest don't assign to another user, remove it
+        if (!UsersInterests::findAll([UsersInterests::FIELD_INTEREST_ID => $interest_id])){
+            Interests::deleteAll([Interests::FIELD_INTEREST_ID => $interest_id]);
+        }
+
+        Yii::$app->session->setFlash('success', 'Interest deleted successfully');
+        return $this->redirect('personal-details');
     }
 }
